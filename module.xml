@@ -11,7 +11,7 @@
 	id="de.mfelten.xml.diffpatch" uid="72CECF0E-8451-47C1-90E0-30F37CA9C3C4">
 	<display-name>xml diff/patch</display-name>
 
-	<description xml:lang="en" kind="short">
+	<description xml:lang="en" kind="one-line">
 		xslt stylesheet to diff and patch generic xml documents.
 	</description>
 
