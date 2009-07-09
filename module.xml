@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module
+	xmlns="http://mfelten.de/mfb/core/module"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ant="antlib:org.apache.tools.ant"
+	xsi:schemaLocation="http://mfelten.de/mfb/core/module
+						http://mfelten.de/modules/core/1.0/schema/module-1.0.xsd
+						antlib:org.apache.tools.ant
+						http://mfelten.de/modules/org.apache.ant/1.7.1/schema/ant.xsd"
+	xsi:noNamespaceSchemaLocation="module-1.0.xsd"
+	id="de.mfelten.xml.diffpatch" uid="72CECF0E-8451-47C1-90E0-30F37CA9C3C4">
+	<display-name>xml diff/patch</display-name>
+
+	<description xml:lang="en" kind="short">
+		xslt stylesheet to diff and patch generic xml documents.
+	</description>
+
+	<author name="Markus Felten" email="Markus@mfelten.de"/>
+
+	<provides versions="1.0" penetration="1">
+		<xslt>
+			<xsl name="diff.xsl"	link="called"	scope="xml"/>
+			<xsl name="patch.xsl"	link="called"	scope="xml"/>
+		</xslt>
+	</provides>
+</module>
