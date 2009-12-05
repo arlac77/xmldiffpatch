@@ -18,8 +18,15 @@
 	<author name="Markus Felten" email="Markus@mfelten.de"/>
 
 	<provides versions="1.0" penetration="1">
+		<depends>
+			<module id="de.mfelten"					version="1.0"/>
+			<module id="xml"						version="1.0"/>
+		</depends>
+
 		<xslt>
-			<xsl name="diff.xsl"	link="called"	scope="xml"/>
+			<xsl name="diff.xsl"	link="called"	scope="xml">
+				<test name="diff.xts"/>
+			</xsl>
 			<xsl name="patch.xsl"	link="called"	scope="xml"/>
 		</xslt>
 	</provides>
