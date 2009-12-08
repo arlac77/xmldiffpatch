@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <test:suite xmlns:test="http://www.fgeorges.org/xslt/unit-test"
 			xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+			xmlns:diff="http://mfelten.de/xml/diff"
 			script="diff.xsl">
 
-<test:tests id="attribute">
+<xsl:variable name="A" as="element()*">
+	<a/>
+</xsl:variable>
+
+<xsl:variable name="B" as="element()*">
+	<b/>
+</xsl:variable>
+
+<test:tests id="element_name_differ">
 	<test:title>diff attributes</test:title>
 
-	<test:test id="string_differ">
-		<test:expect as="element(mfb:module)*" select="false()">
-		<xsl:sequence select="diff:any('A','B')"/>
+	<test:test id="elem_differ">
+		<test:expect select="false()"/>
+		<xsl:sequence select="diff:any($A,$B)"/>
 	</test:test>
 
 </test:tests>

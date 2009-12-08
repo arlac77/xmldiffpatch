@@ -21,7 +21,7 @@
 <xd:doc>
 	<xd:short>main diff entry point</xd:short>
 </xd:doc>
-<xsl:function name="diff:any" as="element()*">
+<xsl:function name="diff:any" as="xs:boolean">
 	<xsl:param name="a"/>
 	<xsl:param name="b"/>
 

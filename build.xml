@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Do not modify this file. Your changes will be lost.
+This is a generated ant build file for the following supported modules
+R - runtime
+B - build
+	
+ B com.oy.shared.lm                        1.4
+RB core                                    1.0
+ B de.mfelten                              1.0
+ B java.doccheck                           1.2beta2
+ B java.j2se                               1.6
+RB java.j2se                               1.5
+ B java.junit                              3.8.1
+ B net.sf.saxon                            9.1
+ B net.sf.saxon.ant                        9.1
+ B org.apache                              2.0
+ B org.apache                              1.1
+ B org.apache.ant                          1.7.1
+ B org.apache.xerces                       2.8.0
+ B org.apache.xml.resolver                 1.2
+ B org.edgewall.trac                       1.0
+ B org.graphviz                            2.12
+ B target.build                            1.0
+ B target.deploy                           1.0
+ B target.distribute                       1.0
+ B target.doc                              1.0
+ B target.publish                          1.0
+ B target.release                          1.0
+ B target.test                             1.0
+ B target.validate                         1.0
+ B xhtml                                   1.0
+ B xml                                     1.0
+ B xml.catalogs                            1.1
+ B xml.relaxng                             1.0
+ B xml.relaxng.jing                        20081028
+ B xml.relaxng.trang                       20081028
+ B xml.svg                                 1.1
+ B xml.xlink                               1.0
+ B xml.xsd                                 1.0
+ B xslt                                    2.0
+ B xslt.unit                               1.0
+ B xsltdoc                                 1.1
+-->
+<project xmlns="antlib:org.apache.tools.ant" xmlns:ant="antlib:org.apache.tools.ant"
+         name="core"
+         basedir="../.."
+         default="build"><!--
+*************************************
+common directories
+*************************************
+--><property file="${user.home}/mfb.properties"/>
+   <property name="support.dir" value="support"/>
+   <property name="targets.dir" value="support"/>
+   <property name="thirdparty.dir" value="thirdparty"/>
+   <property name="java.dir" value="support"/>
+   <property name="org.apache.dir" value="thirdparty"/>
+   <property name="de.mfelten.dir" value="mf"/>
+   <!--
+************************************
+common properties
+************************************
+--><property name="workspace.uri" value="/Users/markus/Projects/mfb"/>
+   <property name="module.dir" value="support/core"/>
+   <property name="catalog.uri" value="catalog.xml"/>
+   <property name="module.id" value="core"/>
+   <property name="supports.build"
+             value="com.oy.shared.lm@1.4,java.j2se@1.5,target.deploy@1.0,target.validate@1.0,target.distribute@1.0,target.release@1.0,target.test@1.0,target.publish@1.0,target.doc@1.0,xsltdoc@1.1,xslt.unit@1.0,java.doccheck@1.2beta2,java.junit@3.8.1,org.graphviz@2.12,de.mfelten@1.0,org.edgewall.trac@1.0,xhtml@1.0"/>
+   <property name="supports.run" value="java.j2se@1.5"/>
+   <property name="module.version" value="1.0"/>
+   <property name="build.root.dir" value="${basedir}/build"/>
+   <property name="build.dir" value="${build.root.dir}/core-1.0"/>
+   <!--
+************************************
+properties
+************************************
+--><property name="build.version" value="adhoc"/>
+   <property name="build.distribute.root.dir" value="${build.root.dir}/docs/modules"/>
+   <property name="build.doc.modules.dir" value="${build.root.dir}/docs/modules"/>
+   <property name="build.doc.root.dir" value="${build.root.dir}/docs"/>
+   <property name="build.distribute.dir" value="${build.distribute.root.dir}/core/1.0"/>
+   <property name="build.doc.dir" value="${build.doc.modules.dir}/core/1.0"/>
+   <!--
+************************************
+other definitions
+************************************
+-->
+
+   <xmlcatalog id="build.catalog">
+      <catalogpath>
+         <pathelement location="${build.dir}/oasis_catalog.xml"/>
+      </catalogpath>
+   </xmlcatalog>
+   <path id="saxon.classpath">
+      <pathelement path="thirdparty/net.sf.saxon/lib/9.1/saxon9.jar"/>
+      <pathelement path="thirdparty/org.apache.xml.resolver-1.2/lib/resolver.jar"/>
+   </path>
+   <path id="saxon.ant.classpath">
+      <path refid="saxon.classpath"/>
+      <pathelement path="thirdparty/net.sf.saxon.ant-9.1/saxon9-ant.jar"/>
+   </path>
+   <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform"
+            classpathref="saxon.ant.classpath"/>
+   <filterset id="filterset.distribute" begintoken="@{{" endtoken="}}@">
+      <filter token="support.dir" value="support"/>
+      <filter token="version" value="1.0"/>
+      <filter token="name" value="de.mfelten.xml.diffpatch"/>
+      <filter token="build.version" value="${build.version}"/>
+      <filter token="service.name" value="CORE"/>
+      <filter token="author" value="Markus Felten"/>
+      <filter token="display-name" value="Core"/>
+      <filter token="display-name." value="Core"/>
+      <filter token="description" value="The core module required by all modules."/>
+      <filter token="description.en" value="The core module required by all modules."/>
+   </filterset>
+   <taskdef name="jing" classname="com.thaiopensource.relaxng.util.JingTask">
+      <classpath>
+         <pathelement path="support/xml.relaxng.jing/lib/jing.jar"/>
+      </classpath>
+   </taskdef>
+   <macrodef name="xhtml_xslt">
+      <attribute name="in"/>
+      <attribute name="out"/>
+      <attribute name="style"/>
+      <attribute name="lang" default="en"/>
+      <attribute name="title" default=""/>
+      <attribute name="document"/>
+      <element name="params" optional="yes"/>
+      <sequential>
+         <saxon-xslt schemaAware="false" schemaValidation="skip" in="@{in}" out="@{out}"
+                     style="@{style}">
+            <param name="build.dir" expression="${build.dir}"/>
+            <param name="build.doc.dir" expression="${build.doc.dir}"/>
+            <param name="build.version" expression="${build.version}"/>
+            <param name="build.timestamp" expression="${build.timestamp}"/>
+            <param name="workspace.uri" expression="${workspace.uri}"/>
+            <param name="catalog.uri" expression="${catalog.uri}"/>
+            <param name="module.id" expression="${module.id}"/>
+            <param name="module.version" expression="${module.version}"/>
+            <param name="supports.build" expression="${supports.build}"/>
+            <param name="supports.run" expression="${supports.run}"/>
+            <param name="lang" expression="@{lang}"/>
+            <param name="xhtml.title" expression="@{title}"/>
+            <param name="xhtml.document.url" expression="@{document}"/>
+            <params/>
+         </saxon-xslt>
+      </sequential>
+   </macrodef>
+   <path id="j2se.build.classpath">
+      <pathelement path="support/com.oy.shared.lm-1.4/lib/oy-lm-1.4.jar"/>
+      <pathelement path="thirdparty/net.sf.saxon/lib/9.1/saxon9.jar"/>
+      <pathelement path="thirdparty/org.apache.xml.resolver-1.2/lib/resolver.jar"/>
+      <pathelement path="support/xml.relaxng.trang/lib/trang.jar"/>
+      <pathelement path="support/xml.relaxng.jing/lib/jing.jar"/>
+      <pathelement path="thirdparty/org.apache.xerces-2.8.0/lib/xercesImpl.jar"/>
+      <pathelement path="thirdparty/org.apache.xerces-2.8.0/lib/xml-apis.jar"/>
+      <pathelement path="support/java.doccheck-1.2beta2/lib/doccheck.jar"/>
+      <pathelement path="support/java.junit-3.8.1/lib/junit-3.8.1.jar"/>
+      <pathelement path="thirdparty/net.sf.saxon.ant-9.1/saxon9-ant.jar"/>
+   </path>
+   <!--
+************************************
+targets
+************************************
+-->
+   <target name="xslt.doc" description="generates xsl documentation">
+      <antcall target="xslt.link">
+         <param name="scope" value="xslt.doc"/>
+         <param name="supports"
+                value="${supports.build},target.build@1.0,target.doc@1.0,xhtml@1.0"/>
+      </antcall>
+      <xhtml_xslt in="${catalog.uri}" out="${build.dir}/null.xml"
+                  style="${build.dir}/xhtml/module2xhtml.xsl"
+                  document="xslt/somefile.html">
+         <params>
+            <param name="outdir" expression="${build.doc.dir}"/>
+         </params>
+      </xhtml_xslt>
+   </target>
+   <target name="xslt.test.doc" description="generates xslt unit test reports"
+           depends="xslt.test">
+      <antcall target="xslt.link">
+         <param name="scope" value="xslt.unit"/>
+         <param name="supports"
+                value="${supports.build},target.build@1.0,target.doc@1.0,xhtml@1.0"/>
+      </antcall>
+      <saxon-xslt schemaAware="false" schemaValidation="skip" basedir="${build.dir}/xsltunit"
+                  destdir="${build.doc.dir}/xsltunit"
+                  style="${build.dir}/xhtml/report-to-html.xsl">
+         <param name="catalog.uri" expression="${catalog.uri}"/>
+         <param name="workspace.uri" expression="${workspace.uri}"/>
+         <param name="module.id" expression="${module.id}"/>
+         <param name="module.version" expression="${module.version}"/>
+         <param name="supports.build" expression="${supports.build}"/>
+         <param name="supports.run" expression="${supports.run}"/>
+         <param name="lang" expression="en"/>
+         <param name="build.version" expression="${build.version}"/>
+         <param name="xhtml.document.url" expression="xsltunit/sometest.html"/>
+      </saxon-xslt>
+   </target>
+   <target name="prepare" depends="xml.catalog.prepare">
+      <mkdir dir="${build.doc.dir}"/>
+      <mkdir dir="${build.dir}/distribute"/>
+      <tstamp>
+         <format property="build.timestamp" pattern="d-MMMM-yyyy HH:mm" locale="en"/>
+         <format property="build.year" pattern="yyyy" locale="en"/>
+      </tstamp>
+      <mkdir dir="${build.dir}"/>
+   </target>
+   <target name="xml.catalog.prepare" description="create oasis xml catalog"
+           unless="xml.catalog.done">
+      <property name="xml.catalog.done" value="true"/>
+      <antcall target="xslt.link">
+         <param name="supports" value="${supports.build},target.build@1.0"/>
+         <param name="scope" value="xml"/>
+      </antcall>
+      <saxon-xslt schemaAware="false" schemaValidation="skip" in="${catalog.uri}"
+                  out="${build.dir}/oasis_catalog.xml"
+                  style="${build.dir}/xml/create_oasis_catalog.xsl">
+         <param name="catalog.uri" expression="${catalog.uri}"/>
+         <param name="workspace.uri" expression="${workspace.uri}"/>
+         <param name="module.id" expression="${module.id}"/>
+         <param name="module.version" expression="${module.version}"/>
+         <param name="supports.build" expression="${supports.build}"/>
+         <param name="supports.run" expression="${supports.run}"/>
+      </saxon-xslt>
+   </target>
+   <target name="xslt.link"
+           description="prepares xslt processing by linking module stylesheets">
+      <mkdir dir="${build.dir}/${scope}"/>
+      <saxon-xslt schemaAware="false" schemaValidation="skip" force="false" in="${catalog.uri}"
+                  out="${build.dir}/${scope}/${scope}.xsl"
+                  style="support/core/xslt/link.xsl">
+         <param name="workspace.uri" expression="${workspace.uri}"/>
+         <param name="catalog.uri" expression="${catalog.uri}"/>
+         <param name="module.id" expression="${module.id}"/>
+         <param name="module.version" expression="${module.version}"/>
+         <param name="supports.build" expression="${supports}"/>
+         <param name="scope" expression="${scope}"/>
+         <param name="link.dir" expression="${build.dir}/${scope}"/>
+      </saxon-xslt>
+   </target>
+
+   <target name="xslt.test" description="execute xslt test" depends="prepare">
+      <saxon-xslt schemaAware="false" schemaValidation="skip" basedir="mf/xmldiffpatch"
+                  includes="**/*.xts"
+                  destdir="${build.dir}/xsltunit"
+                  style="/Users/markus/Projects/mfb/support/xslt.unit/src/test-suite-gen.xsl">
+         <chainedmapper>
+            <mapper type="flatten"/>
+            <globmapper from="*.xts" to="*.xsl"/>
+         </chainedmapper>
+      </saxon-xslt>
+      <parallel threadsPerProcessor="1">
+         <saxon-xslt schemaAware="false" schemaValidation="skip"
+                     in="/Users/markus/Projects/mfb/mf/xmldiffpatch/xslt/diff.xsl"
+                     out="${build.dir}/xsltunit/diff.xml"
+                     style="${build.dir}/xsltunit/diff.xsl"/>
+      </parallel>
+   </target>
+
+   <target name="test" description="calls all testing targets" depends="xslt.test"/>
+   <target name="clean" description="clean up intermediate files">
+      <delete dir="${build.dir}"/>
+   </target>
+</project>
