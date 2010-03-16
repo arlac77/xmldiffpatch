@@ -25,7 +25,7 @@
 
 		<xslt>
 			<xsl name="diff.xsl"	link="called"	scope="xml">
-				<test name="diff.xts"/>
+				<xspec name="diff.xts"/>
 			</xsl>
 			<xsl name="patch.xsl"	link="called"	scope="xml"/>
 		</xslt>

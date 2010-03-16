@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t:description xmlns:t="http://www.jenitennison.com/xslt/xspec"
+			xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+			xmlns:diff="http://mfelten.de/xml/diff"
+			stylesheet="diff.xsl">
+
+	<t:scenario label="scenario">
+		<t:call function="diff:any">
+			<t:param name="a1"><a/></t:param>
+			<t:param name="a2"><b/></t:param>
+		</t:call>
+
+		<t:expect label="expectations" select="/diff:rename[@from='a' and @to='b']"/>
+	</t:scenario>
+</t:description>
