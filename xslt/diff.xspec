@@ -4,12 +4,34 @@
 			xmlns:diff="http://mfelten.de/xml/diff"
 			stylesheet="diff.xsl">
 
-	<t:scenario label="scenario">
+	<t:scenario label="simple element rename">
 		<t:call function="diff:any">
-			<t:param name="a1"><a/></t:param>
-			<t:param name="a2"><b/></t:param>
+			<t:param name="a1">
+				<a/>
+			</t:param>
+			<t:param name="a2">
+				<b/>
+			</t:param>
 		</t:call>
 
-		<t:expect label="expectations" select="/diff:rename[@from='a' and @to='b']"/>
+		<t:expect label="expectations">
+			<diff:rename from="a" to="b"/>
+		</t:expect>
 	</t:scenario>
+
+	<t:scenario label="simple text change">
+		<t:call function="diff:any">
+			<t:param name="a1">
+				<a>a</a>
+			</t:param>
+			<t:param name="a2">
+				<a>b</a>
+			</t:param>
+		</t:call>
+
+		<t:expect label="expectations">
+			<diff:rename from="a" to="b"/>
+		</t:expect>
+	</t:scenario>
+
 </t:description>

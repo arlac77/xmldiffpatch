@@ -30,6 +30,14 @@
 	</xsl:apply-templates>
 </xsl:function>
 
+<xsl:template match="text()" mode="diff">
+	<xsl:param name="b" as="text()" tunnel="yes"/>
+
+	<xsl:if test=". != $b">
+		<diff:text from="{.}" to="{$b}"/>
+	</xsl:if>
+</xsl:template>
+
 <xsl:template match="element()" mode="diff">
 	<xsl:param name="b" as="element()" tunnel="yes"/>
 
