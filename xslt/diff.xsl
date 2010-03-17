@@ -41,16 +41,22 @@
 <xsl:template match="element()" mode="diff">
 	<xsl:param name="b" as="element()" tunnel="yes"/>
 
-	<xsl:if test="name()!= $b/name()">
-		<diff:rename from="{name()}" to="{$b/name()}"/>
-	</xsl:if>
+	<xsl:choose>
+		<xsl:when test="deep-equal(.,$b)">
+		</xsl:when>
 
-	<xsl:for-each select="*">
-		<xsl:variable name="p" select="position()"/>
-		<xsl:apply-templates select="." mode="diff">
-			<xsl:with-param name="b" select="$b/element()[$p = position()]" tunnel="yes"/>
-		</xsl:apply-templates>
-	</xsl:for-each>
+		<xsl:otherwise>
+			<xsl:if test="name() != $b/name()">
+				<diff:rename from="{name()}" to="{$b/name()}"/>
+			</xsl:if>
+			<xsl:for-each select="*">
+				<xsl:variable name="p" select="position()"/>
+				<xsl:apply-templates select="." mode="diff">
+					<xsl:with-param name="b" select="$b/element()[$p = position()]" tunnel="yes"/>
+				</xsl:apply-templates>
+			</xsl:for-each>
+		</xsl:otherwise>
+	</xsl:choose>
 
 </xsl:template>
 

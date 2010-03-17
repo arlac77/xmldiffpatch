@@ -4,6 +4,20 @@
 			xmlns:diff="http://mfelten.de/xml/diff"
 			stylesheet="diff.xsl">
 
+	<t:scenario label="deep eual">
+		<t:call function="diff:any">
+			<t:param name="a1">
+				<e><e a="v"/></e>
+			</t:param>
+			<t:param name="a2">
+				<e><e a="v"/></e>
+			</t:param>
+		</t:call>
+
+		<t:expect label="expectations">
+		</t:expect>
+	</t:scenario>
+
 	<t:scenario label="simple element rename">
 		<t:call function="diff:any">
 			<t:param name="a1">
@@ -11,6 +25,21 @@
 			</t:param>
 			<t:param name="a2">
 				<b/>
+			</t:param>
+		</t:call>
+
+		<t:expect label="expectations">
+			<diff:rename from="a" to="b"/>
+		</t:expect>
+	</t:scenario>
+
+	<t:scenario label="element rename">
+		<t:call function="diff:any">
+			<t:param name="a1">
+				<a><a1/></a>
+			</t:param>
+			<t:param name="a2">
+				<a><a1/></a>
 			</t:param>
 		</t:call>
 
