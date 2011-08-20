@@ -4,18 +4,16 @@
 <xsl:stylesheet version="2.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xd="http://www.pnp-software.com/XSLTdoc"
   xmlns:diff="http://mfelten.de/xml/diff"
   xmlns="http://mfelten.de/xml/diff"
-  exclude-result-prefixes="xs xsi xd diff">
+  exclude-result-prefixes="xs xd diff">
 
 
 <xd:doc type="stylesheet">
 	Diffing generic xml documents
 	<xd:author>Markus Felten</xd:author>
-	<xd:copyright>Markus Felten 2009</xd:copyright>
-	<xd:cvsId>$Id: dependency.xsl 7082 2009-07-02 08:52:49Z markus $</xd:cvsId>
+	<xd:copyright>Markus Felten 2009-2011</xd:copyright>
 </xd:doc>
 
 <xd:doc>
@@ -57,7 +55,6 @@
 			</xsl:for-each>
 		</xsl:otherwise>
 	</xsl:choose>
-
 </xsl:template>
 
 </xsl:stylesheet>
